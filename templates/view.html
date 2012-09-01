@@ -1,0 +1,15 @@
+{%extends 'homepage.html' %}
+{% block page_title %}{%if snippet.name %}{{snippet.name|escape}}{%endif %} - {% endblock %}
+
+{%block htwo%}<h2>#{{snippet.key.id}} {%if snippet.name %}{{snippet.name|escape}}{% else %}No Name{%endif %}</h2>{%endblock%}
+{%block when%}{%endblock%}
+{%block lang%}{%endblock%}
+
+{%block snippetclass%}snippet_show{%endblock%}
+{%block view%}View <a href="?format=raw" target="new">raw</a> or <a id="clip_it" href="#">copy</a>{%endblock%}
+{%block snippetcontent%}
+{{snippet.content|pygments:snippet.lang|safe}}
+<div class="for_copy"><textarea>{{snippet.content}}</textarea></div>
+{% endblock %}
+{%block navigation%}
+{%endblock%}

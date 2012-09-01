@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block page_title %}Home - {% endblock %}
+{% block body %}
+
+{%block htwo%}<h2>Latest snippets</h2>{% endblock %}
+<div id="snippets">
+  <div class="pages">{%block navigation%}
+    <div class="pagination">{% if offset %}<a href="?start={{ next }}" class="next_page" rel="next">&laquo; Previous</a>{%endif%}{% if previous %} <a href="?start={{ previous }}" rel="previous">Next &raquo;</a>{%endif%}</div>{%endblock%}
+  </div>
+
+  {% for snippet in snippets %} 
+  <div class="{%block snippetclass%}item{%endblock%} clearfix" id="{{snippet.key.id}}">
+    {%block when%}<div class="when">      
+      <span class="typo_date" title="{{snippet.published}}">{{snippet.published|date:"Y/m/d H:i:s"}}
+    </div>{%endblock%}
+    <div class="link">      
+      {%block lang%}#{{snippet.key.id}} <a href="/snippet/{{snippet.key.id}}">{%if snippet.name %}{{snippet.name|escape}}{% else %}No Name{%endif %}</a> 
+            <span class="lang">[ language: <a href="/lang/{{snippet.lang}}">{{snippet.lang}}</a> ]</span>{%endblock%}
+            <span  class="count">{%block view%}{%endblock%}{%if admin%} - <a href="/edit/{{snippet.key}}/">edit</a> - <a class="delete">delete</a>{%endif%}</span>
+    </div>
+    <div class="summary">
+      {%block snippetcontent%}{{snippet.content|shortor|pygments:snippet.lang|safe}}{% endblock %}
+    </div>  
+  </div>
+  {%endfor%}  
+  <div class="pages">{%block navigation2%}
+    <div class="pagination">{% if offset %}<a href="?start={{ next }}" class="next_page" rel="next">&laquo; Previous</a>{%endif%}{% if previous %} <a href="?start={{ previous }}" rel="previous">Next &raquo;</a>{%endif%}</div>{%endblock%}
+  </div>
+</div>
+
+{% endblock %}
